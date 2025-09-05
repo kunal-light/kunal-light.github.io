@@ -1,15 +1,749 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAMA portfo-lio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rama • AI/ML | Robotics | Drones</title>
+  <meta name="description" content="Portfolio of Rama — AI/ML student at Amity University Haryana; mentor & ex-president of Techniki; robotics, AI and drones enthusiast." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🤖</text></svg>">
+
+  <style>
+    :root{
+      --bg: #0e0f12;
+      --panel: #14161a;
+      --text: #e8eaf0;
+      --muted:#aab1bd;
+      --brand:#7c5cff;
+      --brand-2:#26c6da;
+      --ok:#15c77e;
+      --warn:#ffc857;
+      --danger:#ff5c7a;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 14px;
+      --radius-sm: 10px;
+      --maxw: 1100px;
+      --speed: .4s;
+    }
+    /* Light mode tokens */
+    :root.light{
+      --bg:#f7f8fb;
+      --panel:#ffffff;
+      --text:#1b1f2a;
+      --muted:#54607a;
+      --shadow: 0 10px 24px rgba(0,0,0,.08);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(124,92,255,.15), transparent 60%),
+                  radial-gradient(1000px 900px at 110% 10%, rgba(38,198,218,.12), transparent 60%),
+                  var(--bg);
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    img,svg{display:block; max-width:100%}
+    section{padding:64px 20px}
+    .wrap{max-width:var(--maxw); margin-inline:auto}
+
+    /* Skip link */
+    .skip{
+      position:absolute; left:-9999px; top:auto;
+      background:var(--panel); color:var(--text);
+      padding:.6rem 1rem; border-radius:var(--radius-sm);
+      box-shadow:var(--shadow);
+    }
+    .skip:focus{left:20px; top:20px; z-index:9999}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:999;
+      backdrop-filter:saturate(140%) blur(8px);
+      background: color-mix(in oklab, var(--panel) 70%, transparent);
+      border-bottom:1px solid color-mix(in oklab, var(--panel) 90%, #000 10%);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:14px 20px; max-width:var(--maxw); margin:auto;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px;
+    }
+    .brand .logo{
+      width:36px; height:36px; border-radius:10px; display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:white; box-shadow:var(--shadow);
+      font-weight:800;
+    }
+    .nav a{font-weight:600; color:var(--text); opacity:.9}
+    .nav .links{display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+    .btn, button{
+      border:0; cursor:pointer; font-weight:700; letter-spacing:.2px;
+      border-radius:999px; padding:10px 16px;
+      background:var(--brand); color:white; transition:transform .06s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 20px rgba(124,92,255,.35);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.ghost{
+      background:transparent; color:var(--text); border:1px solid color-mix(in oklab, var(--text) 18%, transparent);
+      box-shadow:none;
+    }
+    .theme{
+      display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border-radius:999px;
+      background:var(--panel); border:1px solid color-mix(in oklab, var(--text) 12%, transparent);
+    }
+    .theme input{appearance:none; width:44px; height:24px; border-radius:999px; position:relative; background:#333}
+    :root.light .theme input{background:#e6e9f2}
+    .theme input::after{
+      content:""; position:absolute; inset:3px auto 3px 3px; width:18px; height:18px; border-radius:50%;
+      background:white; transition:left var(--speed) ease; left:3px; box-shadow:0 2px 6px rgba(0,0,0,.25)
+    }
+    .theme input:checked::after{left:23px}
+
+    /* Hero */
+    .hero{
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:28px; align-items:center;
+    }
+    @media (max-width:900px){ .hero{grid-template-columns:1fr; text-align:center} }
+    .card{
+      background:var(--panel); border:1px solid color-mix(in oklab, var(--text) 12%, transparent);
+      border-radius:var(--radius); box-shadow:var(--shadow);
+    }
+    .hero .intro{padding:32px}
+    .kicker{font-weight:800; letter-spacing:.25em; text-transform:uppercase; color:var(--muted); font-size:.8rem}
+    h1{margin:.3rem 0 1rem; font-size:clamp(28px, 4.2vw, 48px); line-height:1.2}
+    .typed{display:inline-block; border-right:2px solid var(--brand); white-space:nowrap; overflow:hidden}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 6px}
+    .badge{
+      font-size:.82rem; padding:6px 10px; border-radius:999px; background: color-mix(in oklab, var(--brand) 18%, transparent);
+      border:1px solid color-mix(in oklab, var(--brand) 35%, transparent); color:var(--text)
+    }
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .hero .visual{position:relative; min-height:320px; overflow:hidden}
+    .grid-bg{
+      position:absolute; inset:0; background:
+        linear-gradient(transparent 31px, color-mix(in oklab, var(--text) 8%, transparent) 32px),
+        linear-gradient(90deg, transparent 31px, color-mix(in oklab, var(--text) 8%, transparent) 32px);
+      background-size:32px 32px;
+      mask: radial-gradient(600px 300px at 40% 0%, #000 40%, transparent);
+    }
+    .drone{
+      position:absolute; width:120px; left:10%; top:18%; animation:fly 10s ease-in-out infinite;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.35));
+    }
+    @keyframes fly{
+      0%{ transform:translate(0,0) rotate(0deg)}
+      25%{ transform:translate(220px,-18px) rotate(3deg)}
+      50%{ transform:translate(380px,14px) rotate(-2deg)}
+      75%{ transform:translate(180px,22px) rotate(1deg)}
+      100%{ transform:translate(0,0) rotate(0deg)}
+    }
+
+    /* Sections */
+    h2{font-size:clamp(22px,3.2vw,34px); margin:0 0 22px}
+    .two{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+    @media (max-width:900px){ .two{grid-template-columns:1fr} }
+    .pillbar{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{padding:8px 12px; border-radius:999px; background: color-mix(in oklab, var(--text) 8%, transparent); border:1px solid color-mix(in oklab, var(--text) 15%, transparent)}
+
+    /* Skills */
+    .skill{margin:14px 0}
+    .skill label{display:flex; justify-content:space-between; font-weight:700}
+    progress{
+      width:100%; height:12px; appearance:none; border-radius:999px; overflow:hidden; background: color-mix(in oklab, var(--text) 10%, transparent);
+      border:1px solid color-mix(in oklab, var(--text) 14%, transparent)
+    }
+    progress::-webkit-progress-bar{background:transparent}
+    progress::-webkit-progress-value{background: linear-gradient(90deg,var(--brand),var(--brand-2))}
+    progress[value]{transition: width 1s ease}
+
+    /* Projects */
+    .filters{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px}
+    .filters .tag{padding:8px 12px; border:1px solid color-mix(in oklab, var(--text) 12%, transparent); border-radius:999px; cursor:pointer}
+    .filters .tag[aria-pressed="true"]{background:var(--brand); color:#fff; border-color:transparent}
+    .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+    @media (max-width:1000px){ .cards{grid-template-columns: repeat(2, 1fr)} }
+    @media (max-width:640px){ .cards{grid-template-columns: 1fr} }
+    .card.project{overflow:hidden}
+    .project .thumb{aspect-ratio: 16/9; background:
+      radial-gradient(circle at 20% 20%, rgba(124,92,255,.4), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(38,198,218,.35), transparent 40%),
+      color-mix(in oklab, var(--text) 6%, transparent); display:grid; place-items:center; font-weight:800}
+    .project .body{padding:16px}
+    .chip{display:inline-block; font-size:.78rem; padding:4px 8px; border-radius:999px; margin:6px 6px 0 0;
+      background: color-mix(in oklab, var(--brand) 16%, transparent); border:1px solid color-mix(in oklab, var(--brand) 30%, transparent)}
+    .project footer{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:12px}
+    .small{font-size:.88rem; color:var(--muted)}
+
+    /* Timeline */
+    .timeline{position:relative; margin-left:6px}
+    .timeline::before{content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background: color-mix(in oklab, var(--text) 14%, transparent)}
+    .t-item{position:relative; padding-left:34px; margin:14px 0}
+    .t-item::before{
+      content:""; position:absolute; left:3px; top:.45em; width:16px; height:16px; border-radius:50%;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:0 0 0 3px color-mix(in oklab, var(--text) 8%, transparent)
+    }
+    .t-title{font-weight:800}
+    .t-meta{color:var(--muted); font-size:.9rem}
+
+    /* Modal (for project details / chess board) */
+    .modal{position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding:20px}
+    .modal[open]{display:flex}
+    .modal .sheet{background:var(--panel); border:1px solid color-mix(in oklab, var(--text) 12%, transparent); border-radius:var(--radius); max-width:840px; width:min(96vw,840px); max-height:88vh; overflow:auto; box-shadow:var(--shadow); padding:20px}
+    .modal .close{float:right}
+
+    /* Contact */
+    form{display:grid; gap:12px}
+    input, textarea{
+      width:100%; padding:12px 14px; background: color-mix(in oklab, var(--text) 8%, transparent);
+      border:1px solid color-mix(in oklab, var(--text) 16%, transparent); color:var(--text); border-radius:10px
+    }
+    textarea{min-height:120px; resize:vertical}
+    .toast{
+      position:fixed; right:16px; bottom:16px; background:var(--panel); border:1px solid color-mix(in oklab, var(--text) 12%, transparent);
+      padding:12px 14px; border-radius:12px; box-shadow:var(--shadow); display:none
+    }
+    .toast.show{display:block; animation:fade 4s ease forwards}
+    @keyframes fade{0%{opacity:0; transform:translateY(10px)}10%,80%{opacity:1; transform:translateY(0)}100%{opacity:0; transform:translateY(10px)}}
+
+    /* Footer / back-to-top */
+    footer{padding:30px 20px; color:var(--muted); text-align:center}
+    .top{position:fixed; right:16px; bottom:72px; display:none}
+    .top.show{display:inline-flex}
+
+    /* Print tidy */
+    @media print{
+      header, .top, .toast, .modal, .grid-bg, .drone{display:none !important}
+      body{background:#fff}
+      .card{box-shadow:none}
+    }
+  </style>
 </head>
 <body>
-    <h1>HI</h1>
-    <!-- <h2>HI</h2>
-    <h3>HI</h3> -->
-    <p>My name is Rama</p>
-    <img src="medibot.png">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header>
+    <nav class="nav">
+      <div class="brand" aria-label="Rama brand">
+        <div class="logo" aria-hidden="true">R</div>
+        <span>Rama • AI/ML</span>
+      </div>
+      <div class="links" role="menubar" aria-label="Primary">
+        <a href="#about" role="menuitem">About</a>
+        <a href="#skills" role="menuitem">Skills</a>
+        <a href="#projects" role="menuitem">Projects</a>
+        <a href="#timeline" role="menuitem">Timeline</a>
+        <a href="#contact" role="menuitem">Contact</a>
+        <label class="theme" title="Toggle theme">
+          <span aria-hidden="true">🌙</span>
+          <input id="themeToggle" type="checkbox" aria-label="Toggle theme" />
+          <span aria-hidden="true">☀️</span>
+        </label>
+        <button class="btn ghost" id="downloadResume" title="Download résumé (auto-generated)">Résumé</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero" aria-label="Introduction">
+      <div class="card intro">
+        <div class="kicker">Hello, I’m</div>
+        <h1>Rama — <span class="typed" id="typed" aria-live="polite"></span></h1>
+        <p>
+          AI/ML student at <strong>Amity University, Haryana</strong>. Mentor & ex-President of
+          <strong>Techniki</strong>. Passionate about <strong>robotics</strong>, <strong>AI</strong> and <strong>drones</strong>.
+          Former school <strong>Tech Club President</strong> & <strong>Chess Club Secretary</strong>.
+        </p>
+        <div class="badges" aria-label="Highlights">
+          <span class="badge">Robotics</span>
+          <span class="badge">Computer Vision</span>
+          <span class="badge">Autonomous Drones</span>
+          <span class="badge">Chess ♟</span>
+          <span class="badge">Taekwondo 🥋</span>
+          <span class="badge">Fav: Sita Ramam 🎬</span>
+        </div>
+        <div class="cta">
+          <a class="btn" href="#projects">See Projects</a>
+          <button class="btn ghost" id="openChess">Play a quick chess puzzle</button>
+        </div>
+      </div>
+
+      <div class="card visual" aria-hidden="true">
+        <div class="grid-bg"></div>
+        <!-- Minimal drone SVG -->
+        <svg class="drone" viewBox="0 0 200 120">
+          <g>
+            <ellipse cx="100" cy="70" rx="58" ry="22" fill="url(#g1)"></ellipse>
+            <rect x="82" y="40" width="36" height="26" rx="6" fill="#20242b"></rect>
+            <circle cx="60" cy="40" r="18" fill="#1a1f27"></circle>
+            <circle cx="140" cy="40" r="18" fill="#1a1f27"></circle>
+            <g class="rotor" transform="translate(60,40)">
+              <circle r="4" fill="#7c5cff"></circle>
+              <rect x="-28" y="-1.5" width="56" height="3" rx="3" fill="#26c6da">
+                <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="0.9s" repeatCount="indefinite"/>
+              </rect>
+            </g>
+            <g class="rotor" transform="translate(140,40)">
+              <circle r="4" fill="#7c5cff"></circle>
+              <rect x="-28" y="-1.5" width="56" height="3" rx="3" fill="#26c6da">
+                <animateTransform attributeName="transform" type="rotate" from="0" to="-360" dur="0.9s" repeatCount="indefinite"/>
+              </rect>
+            </g>
+          </g>
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#7c5cff"/>
+              <stop offset="1" stop-color="#26c6da"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </section>
+
+    <section id="about" class="two">
+      <div class="card" style="padding:22px">
+        <h2>About</h2>
+        <p>
+          I thrive at the intersection of algorithms and hardware — building intelligent systems that can
+          <em>see, decide, and act</em>. From training models to testing on real robots and drones, I love the full stack:
+          data, models, deployment, and the polish that makes projects feel complete.
+        </p>
+        <div class="pillbar" aria-label="Interests">
+          <span class="pill">AI/ML</span>
+          <span class="pill">Robotics</span>
+          <span class="pill">Drones</span>
+          <span class="pill">Computer Vision</span>
+          <span class="pill">MLOps</span>
+          <span class="pill">Embedded</span>
+        </div>
+      </div>
+      <div class="card" style="padding:22px">
+        <h2>Quick Facts</h2>
+        <ul>
+          <li>🎓 AI/ML @ Amity University, Haryana</li>
+          <li>🧭 Mentor & ex-President, Techniki (tech club)</li>
+          <li>🤖 Built robotics & drone prototypes</li>
+          <li>♟ Chess lover • 🥋 Taekwondo</li>
+          <li>🎬 Favorite movie: <em>Sita Ramam</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="skills" class="card" style="padding:22px">
+      <h2>Skills</h2>
+      <div class="two">
+        <div>
+          <div class="skill">
+            <label>Python • ML/DL <span>Advanced</span></label>
+            <progress max="100" value="88"></progress>
+          </div>
+          <div class="skill">
+            <label>Computer Vision <span>Advanced</span></label>
+            <progress max="100" value="86"></progress>
+          </div>
+          <div class="skill">
+            <label>Robotics (ROS, autonomy) <span>Intermediate</span></label>
+            <progress max="100" value="72"></progress>
+          </div>
+        </div>
+        <div>
+          <div class="skill">
+            <label>Embedded & IoT <span>Intermediate</span></label>
+            <progress max="100" value="68"></progress>
+          </div>
+          <div class="skill">
+            <label>Data & MLOps <span>Intermediate</span></label>
+            <progress max="100" value="64"></progress>
+          </div>
+          <div class="skill">
+            <label>JavaScript / Front-end <span>Intermediate</span></label>
+            <progress max="100" value="60"></progress>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="card" style="padding:22px">
+          <h2>Projects</h2>
+          <div class="filters" role="toolbar" aria-label="Project filters">
+            <button class="tag" aria-pressed="true" data-filter="all">All</button>
+            <button class="tag" aria-pressed="false" data-filter="ai">AI/ML</button>
+            <button class="tag" aria-pressed="false" data-filter="robotics">Robotics</button>
+            <button class="tag" aria-pressed="false" data-filter="drone">Drones</button>
+            <button class="tag" aria-pressed="false" data-filter="cv">Computer Vision</button>
+          </div>
+          <div class="cards" id="projectGrid" aria-live="polite">
+            <!-- Project cards rendered by JS below -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline" class="card" style="padding:22px">
+      <h2>Timeline</h2>
+      <div class="timeline" id="timelineList">
+        <div class="t-item">
+          <div class="t-title">Mentor, Techniki — Amity University Haryana</div>
+          <div class="t-meta">Present</div>
+          <p>Guiding projects, hackathons and workshops in AI/ML and robotics.</p>
+        </div>
+        <div class="t-item">
+          <div class="t-title">President, Techniki</div>
+          <div class="t-meta">Past role</div>
+          <p>Led the tech club, organized events, and grew the community.</p>
+        </div>
+        <div class="t-item">
+          <div class="t-title">School Tech Club President & Chess Club Secretary</div>
+          <div class="t-meta">School days</div>
+          <p>Built leadership and strategic thinking early through tech and chess.</p>
+        </div>
+      </div>
+      <div class="cta">
+        <button class="btn" id="celebrate">Celebrate achievements 🎉</button>
+      </div>
+    </section>
+
+    <section id="contact" class="two">
+      <div class="card" style="padding:22px">
+        <h2>Contact</h2>
+        <p class="small">This form works locally (no server). It validates, then opens your email app with a prefilled message.</p>
+        <form id="contactForm" novalidate>
+          <div>
+            <label for="name">Your name</label>
+            <input id="name" name="name" required placeholder="Name"/>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com"/>
+          </div>
+          <div>
+            <label for="msg">Message</label>
+            <textarea id="msg" name="msg" required placeholder="Hi Rama, I’d like to talk about…"></textarea>
+          </div>
+          <button class="btn">Send Message</button>
+        </form>
+      </div>
+      <div class="card" style="padding:22px">
+        <h2>Links & Extras</h2>
+        <ul>
+          <li><a href="#" id="copyEmail">Copy email</a> <span class="small">• <em>replace with your address in JS</em></span></li>
+          <li><a href="#skills">Skip to Skills</a></li>
+          <li><button class="btn ghost" id="printPage">Print / Save PDF</button></li>
+          <li class="small">© <span id="year"></span> Rama</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <button id="toTop" class="btn top" aria-label="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Modal -->
+  <dialog class="modal" id="modal">
+    <div class="sheet">
+      <button class="btn ghost close" id="closeModal" aria-label="Close">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </dialog>
+
+  <script>
+    // ---------- Theme ----------
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme){ root.classList.toggle('light', savedTheme === 'light'); themeToggle.checked = savedTheme === 'light'; }
+    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      root.classList.add('light'); themeToggle.checked = true;
+    }
+    themeToggle.addEventListener('change', () => {
+      root.classList.toggle('light', themeToggle.checked);
+      localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // ---------- Typed headline ----------
+    const typedEl = document.getElementById('typed');
+    const roles = [
+      "AI/ML Student",
+      "Robotics & Drones",
+      "Mentor @ Techniki",
+      "Ex-President • Techniki",
+      "Chess ♟ & Taekwondo 🥋"
+    ];
+    let i=0, j=0, deleting=false;
+    function typeLoop(){
+      const word = roles[i % roles.length];
+      if(!deleting){ j++; }
+      else { j--; }
+      typedEl.textContent = word.slice(0, j);
+      if(!deleting && j === word.length){ deleting = true; setTimeout(typeLoop, 1200); return; }
+      if(deleting && j === 0){ deleting = false; i++; }
+      setTimeout(typeLoop, deleting ? 40 : 70);
+    }
+    typeLoop();
+
+    // ---------- Projects data ----------
+    const projects = [
+      {
+        title: "Jetson-powered Drone: On-device Object Tracking",
+        tags:["drone","cv","ai"],
+        desc:"Real-time person/object tracking on a quadcopter; YOLO-based detector + Kalman filter; serial PID to flight controller.",
+        link:"#",
+        thumb:"🛸"
+      },
+      {
+        title: "Chess Vision: Board State from Camera",
+        tags:["cv","ai"],
+        desc:"Computer vision pipeline to detect chess pieces and reconstruct FEN from a top-down webcam.",
+        link:"#",
+        thumb:"♟"
+      },
+      {
+        title: "ROS Rover: Autonomous Line-following + Obstacle Avoid",
+        tags:["robotics","cv"],
+        desc:"ROS nodes for lane detection and ultrasonic-based avoidance; tuned with bag data.",
+        link:"#",
+        thumb:"🤖"
+      },
+      {
+        title: "ML Pipeline: From Data to Deployed API",
+        tags:["ai"],
+        desc:"Feature store, experiment tracking, model registry and FastAPI inference with Docker.",
+        link:"#",
+        thumb:"🧠"
+      },
+      {
+        title: "Drone Swarm Simulator",
+        tags:["drone","robotics"],
+        desc:"Multi-agent formation control in a JS/Canvas sim; boids + leader-follower experiments.",
+        link:"#",
+        thumb:"🕸"
+      },
+      {
+        title: "Sign Language to Speech (Edge)",
+        tags:["ai","cv"],
+        desc:"MediaPipe + lightweight classifier; runs on mobile; on-device privacy.",
+        link:"#",
+        thumb:"🤟"
+      }
+    ];
+
+    const grid = document.getElementById('projectGrid');
+    function renderProjects(filter = 'all'){
+      grid.innerHTML = '';
+      const filtered = projects.filter(p => filter==='all' || p.tags.includes(filter));
+      filtered.forEach((p, idx) => {
+        const el = document.createElement('article');
+        el.className = 'card project';
+        el.innerHTML = `
+          <div class="thumb"><div style="font-size:46px">${p.thumb}</div></div>
+          <div class="body">
+            <h3>${p.title}</h3>
+            <p class="small">${p.desc}</p>
+            <div>${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div>
+            <footer>
+              <a href="${p.link}" class="small">Repo / Demo</a>
+              <button class="btn ghost small more" data-idx="${idx}">Details</button>
+            </footer>
+          </div>`;
+        grid.appendChild(el);
+      });
+    }
+    renderProjects();
+
+    // Filters
+    document.querySelectorAll('.filters .tag').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.filters .tag').forEach(b=>b.setAttribute('aria-pressed','false'));
+        btn.setAttribute('aria-pressed','true');
+        renderProjects(btn.dataset.filter);
+      });
+    });
+
+    // Project modal
+    const modal = document.getElementById('modal');
+    const modalContent = document.getElementById('modalContent');
+    document.addEventListener('click', (e)=>{
+      if(e.target.matches('.more')){
+        const p = projects[+e.target.dataset.idx];
+        modalContent.innerHTML = `
+          <h3 style="margin-top:0">${p.title}</h3>
+          <p>${p.desc}</p>
+          <ul>
+            <li>What I did: design, training, integration</li>
+            <li>Stack: Python, PyTorch, OpenCV, ROS, JS</li>
+            <li>Outcome: working prototype + demo</li>
+          </ul>
+          <p><a href="${p.link}">Open repo/demo</a></p>
+        `;
+        modal.setAttribute('open','');
+      }
+    });
+    document.getElementById('closeModal').addEventListener('click', ()=> modal.removeAttribute('open'));
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.removeAttribute('open'); });
+
+    // ---------- Confetti (tiny) ----------
+    function confetti(){
+      const burst = document.createElement('div');
+      burst.style.position='fixed';
+      burst.style.inset='0';
+      burst.style.pointerEvents='none';
+      document.body.appendChild(burst);
+      const pieces = 120;
+      for(let i=0;i<pieces;i++){
+        const s = document.createElement('div');
+        s.style.position='absolute';
+        s.style.left = (Math.random()*100)+'vw';
+        s.style.top = '-10px';
+        s.style.width='8px'; s.style.height='12px';
+        s.style.background = ['#7c5cff','#26c6da','#15c77e','#ffc857','#ff5c7a'][i%5];
+        s.style.transform = `rotate(${Math.random()*180}deg)`;
+        s.style.opacity=.9;
+        s.style.borderRadius='2px';
+        s.style.transition = 'transform 1.2s ease, top 1.2s ease, opacity 1.2s ease';
+        burst.appendChild(s);
+        requestAnimationFrame(()=>{
+          s.style.top = '100vh';
+          s.style.transform += ` translateY(${Math.random()*40+60}vh)`;
+          s.style.opacity = .1;
+        });
+      }
+      setTimeout(()=>burst.remove(), 1400);
+    }
+    document.getElementById('celebrate').addEventListener('click', confetti);
+
+    // ---------- Contact ----------
+    const form = document.getElementById('contactForm');
+    const toast = document.getElementById('toast');
+    function showToast(msg){ toast.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), 4100); }
+
+    const RAMA_EMAIL = "rama@example.com"; // ← replace with your real email
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const msg = form.msg.value.trim();
+      if(!name || !email || !msg){ showToast("Please fill all fields."); return; }
+      const mailto = `mailto:${encodeURIComponent(RAMA_EMAIL)}?subject=${encodeURIComponent("Portfolio contact from "+name)}&body=${encodeURIComponent(msg + "\n\nFrom: "+name+" <"+email+">")}`;
+      window.location.href = mailto;
+      showToast("Opening your email app…");
+      form.reset();
+    });
+    document.getElementById('copyEmail').addEventListener('click', (e)=>{
+      e.preventDefault();
+      navigator.clipboard.writeText(RAMA_EMAIL).then(()=>showToast("Email copied!")).catch(()=>showToast("Could not copy email."));
+    });
+
+    // ---------- Back to top ----------
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=>{
+      toTop.classList.toggle('show', window.scrollY > 800);
+    });
+    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+    // ---------- Resume (auto-generate simple TXT) ----------
+    document.getElementById('downloadResume').addEventListener('click', ()=>{
+      const txt = `Rama — AI/ML • Robotics • Drones
+
+Summary
+- AI/ML student at Amity University, Haryana
+- Mentor & ex-President of Techniki
+- Interests: Robotics, AI, Drones, Chess, Taekwondo
+
+Experience & Leadership
+- Mentor, Techniki — Present
+- President, Techniki — Past
+- School: Tech Club President; Chess Club Secretary
+
+Selected Projects
+- Jetson Drone: On-device Object Tracking
+- Chess Vision: Board State from Camera
+- ROS Rover: Line-following + Obstacle Avoid
+- ML Pipeline: Data → Deployed API
+
+Skills
+Python, ML/DL, Computer Vision, ROS, Embedded/IoT, MLOps, JavaScript
+
+Extras
+Favorite movie: Sita Ramam
+
+Contact
+Email: ${RAMA_EMAIL}
+`;
+      const blob = new Blob([txt], {type:'text/plain'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Rama-resume.txt';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showToast("Résumé downloaded.");
+    });
+
+    // ---------- Year & print ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('printPage').addEventListener('click', ()=>window.print());
+
+    // ---------- Chess mini modal ----------
+    const openChess = document.getElementById('openChess');
+    openChess.addEventListener('click', ()=>{
+      modalContent.innerHTML = `
+        <h3 style="margin-top:0">Mini Chess Puzzle</h3>
+        <p class="small">Drag the white knight to deliver a fork! (Just a playful demo.)</p>
+        <div id="board" style="display:grid; grid-template-columns:repeat(8,48px); gap:0; border:1px solid #00000020; width:max-content; user-select:none"></div>
+      `;
+      const board = modalContent.querySelector('#board');
+      // Simple 8x8 with one white knight and two black pieces
+      const squares = [];
+      for(let r=0;r<8;r++){
+        for(let c=0;c<8;c++){
+          const sq = document.createElement('div');
+          sq.style.width='48px'; sq.style.height='48px';
+          sq.style.display='grid'; sq.style.placeItems='center';
+          sq.style.background = (r+c)%2 ? 'color-mix(in oklab, var(--text) 10%, transparent)' : 'transparent';
+          sq.dataset.r=r; sq.dataset.c=c;
+          board.appendChild(sq);
+          squares.push(sq);
+        }
+      }
+      function idx(r,c){ return r*8+c; }
+      // Place pieces: knight at g5 (r=3,c=6), black king e6 (r=2,c=4), black rook f7 (r=1,c=5)
+      const knight = document.createElement('div'); knight.textContent='♘'; knight.style.fontSize='28px'; knight.style.cursor='grab';
+      squares[idx(3,6)].appendChild(knight);
+      const bK = document.createElement('div'); bK.textContent='♚'; bK.style.fontSize='28px';
+      squares[idx(2,4)].appendChild(bK);
+      const bR = document.createElement('div'); bR.textContent='♜'; bR.style.fontSize='28px';
+      squares[idx(1,5)].appendChild(bR);
+
+      let drag=false;
+      knight.addEventListener('pointerdown', ()=>{ drag=true; knight.setPointerCapture(event.pointerId); knight.style.opacity=.7; });
+      knight.addEventListener('pointerup', (e)=>{ drag=false; knight.style.opacity=1;
+        const rect = board.getBoundingClientRect();
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+        const c = Math.min(7, Math.max(0, Math.floor(x/48)));
+        const r = Math.min(7, Math.max(0, Math.floor(y/48)));
+        // validate knight move from (3,6)
+        const dr = Math.abs(r-3), dc = Math.abs(c-6);
+        if(dr*dc===2){ // L move
+          squares[idx(3,6)].innerHTML='';
+          squares[idx(r,c)].innerHTML='';
+          squares[idx(r,c)].appendChild(knight);
+          // if landed on fork square e6 (2,4) or f7 (1,5), just celebrate
+          if((r===2 && c===5) || (r===1 && c===4)){
+            confetti(); showToast("Nice tactic! Knight fork idea ♞");
+          }
+        } else {
+          showToast("That’s not a knight move.");
+        }
+      });
+      modal.setAttribute('open','');
+    });
+
+    // Accessibility: close modal with Esc
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.hasAttribute('open')) modal.removeAttribute('open'); });
+  </script>
 </body>
 </html>
